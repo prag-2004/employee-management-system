@@ -1,0 +1,93 @@
+<div class="employees-container">
+ 
+  <h1>Employee List</h1>
+ 
+  <!-- Add Employee -->
+  <button type="button" (click)="addEmployee()">
+    + Add Employee
+  </button>
+ 
+  <!-- Success Message -->
+  @if (successMessage) {
+    <p class="success">{{ successMessage }}</p>
+  }
+ 
+  <!-- Error Message -->
+  @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+  }
+ 
+  @if (loading) {
+    <p>Loading employees...</p>
+  }
+ 
+  @if (!loading && !errorMessage && employees.length === 0) {
+    <p>No employees found.</p>
+  }
+ 
+  @if (!loading && employees.length > 0) {
+ 
+    <table>
+ 
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Role</th>
+          <th>Joining Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+ 
+      <tbody>
+ 
+        @for (employee of employees; track employee.id) {
+ 
+          <tr>
+ 
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.department }}</td>
+            <td>{{ employee.role }}</td>
+            <td>{{ employee.joiningDate }}</td>
+ 
+            <td>
+ 
+              <!-- Edit -->
+              <button
+                type="button"
+                (click)="editEmployee(employee)">
+                Edit
+              </button>
+ 
+              <!-- View -->
+              <button
+                type="button"
+                (click)="viewEmployee(employee)">
+                View
+              </button>
+ 
+              <!-- Delete -->
+              <button
+                type="button"
+                (click)="deleteEmployee(employee)">
+                Delete
+              </button>
+ 
+            </td>
+ 
+          </tr>
+ 
+        }
+ 
+      </tbody>
+ 
+    </table>
+ 
+  }
+ 
+</div>
+ 

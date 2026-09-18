@@ -1,0 +1,40 @@
+.add-employee-container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 25px;
+}
+ 
+h1 {
+  margin-bottom: 20px;
+}
+ 
+.form-group {
+  margin-bottom: 18px;
+}
+ 
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+ 
+input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+ 
+.error {
+  display: block;
+  margin-top: 5px;
+}
+ 
+.success {
+  margin-top: 15px;
+}
+ 
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+ 

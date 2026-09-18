@@ -1,0 +1,132 @@
+<div class="add-employee-container">
+ 
+  <h1>
+    {{ editingEmployee ? 'Edit Employee' : 'Add Employee' }}
+  </h1>
+ 
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+ 
+    <!-- Name -->
+    <div class="form-group">
+      <label for="name">Name</label>
+ 
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Enter employee name"
+      />
+ 
+      @if (employeeForm.controls.name.touched &&
+           employeeForm.controls.name.invalid) {
+ 
+        @if (employeeForm.controls.name.errors?.['required']) {
+          <small class="error">Name is required.</small>
+        }
+ 
+        @if (employeeForm.controls.name.errors?.['minlength']) {
+          <small class="error">
+            Name must be at least 2 characters.
+          </small>
+        }
+      }
+    </div>
+ 
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+ 
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="Enter employee email"
+      />
+ 
+      @if (employeeForm.controls.email.touched &&
+           employeeForm.controls.email.invalid) {
+ 
+        @if (employeeForm.controls.email.errors?.['required']) {
+          <small class="error">Email is required.</small>
+        }
+ 
+        @if (employeeForm.controls.email.errors?.['email']) {
+          <small class="error">
+            Please enter a valid email address.
+          </small>
+        }
+      }
+    </div>
+ 
+    <!-- Department -->
+    <div class="form-group">
+      <label for="department">Department</label>
+ 
+      <input
+        type="text"
+        id="department"
+        formControlName="department"
+        placeholder="Enter department"
+      />
+ 
+      @if (employeeForm.controls.department.touched &&
+           employeeForm.controls.department.invalid) {
+ 
+        <small class="error">Department is required.</small>
+      }
+    </div>
+ 
+    <!-- Role -->
+    <div class="form-group">
+      <label for="role">Role</label>
+ 
+      <input
+        type="text"
+        id="role"
+        formControlName="role"
+        placeholder="Enter employee role"
+      />
+ 
+      @if (employeeForm.controls.role.touched &&
+           employeeForm.controls.role.invalid) {
+ 
+        <small class="error">Role is required.</small>
+      }
+    </div>
+ 
+    <!-- Joining Date -->
+    <div class="form-group">
+      <label for="joiningDate">Joining Date</label>
+ 
+      <input
+        type="date"
+        id="joiningDate"
+        formControlName="joiningDate"
+      />
+ 
+      @if (employeeForm.controls.joiningDate.touched &&
+           employeeForm.controls.joiningDate.invalid) {
+ 
+        <small class="error">Joining date is required.</small>
+      }
+    </div>
+ 
+    <!-- Success Message -->
+    @if (successMessage) {
+      <p class="success">{{ successMessage }}</p>
+    }
+ 
+    <!-- Error Message -->
+    @if (errorMessage) {
+      <p class="error">{{ errorMessage }}</p>
+    }
+ 
+    <!-- Submit Button -->
+    <button type="submit">
+      {{ editingEmployee ? 'Update Employee' : 'Add Employee' }}
+    </button>
+ 
+  </form>
+ 
+</div>
+ 

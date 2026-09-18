@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "name": "Aarav Sharma",
+    "email": "aarav@gmail.com",
+    "position": "Software Developer"
+  },
+  {
+    "id": 2,
+    "name": "Priya Patil",
+    "email": "priya@gmail.com",
+    "position": "UI Developer"
+  },
+  {
+    "id": 3,
+    "name": "Rahul Deshmukh",
+    "email": "rahul@gmail.com",
+    "position": "Project Manager"
+  },
+  {
+    "id": 4,
+    "name": "Sneha Kulkarni",
+    "email": "sneha@gmail.com",
+    "position": "HR Executive"
+  },
+  {
+    "id": 5,
+    "name": "Aditya Joshi",
+    "email": "aditya@gmail.com",
+    "position": "Software Tester"
+  }
+]
+ 
