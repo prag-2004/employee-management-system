@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+ 
 import { Observable, BehaviorSubject } from 'rxjs';
+ 
 import { Employee } from '../models/employee';
  
 @Injectable({
@@ -7,7 +9,7 @@ import { Employee } from '../models/employee';
 })
 export class EmployeeService {
  
-  private employees: Employee[] = [
+  private defaultEmployees: Employee[] = [
     {
       id: 1,
       name: 'Aarav Sharma',
@@ -50,6 +52,8 @@ export class EmployeeService {
     }
   ];
  
+  private employees: Employee[] = this.loadEmployees();
+ 
   private employeeSubject =
     new BehaviorSubject<Employee[]>(this.employees);
  
@@ -58,12 +62,16 @@ export class EmployeeService {
   }
  
   addEmployee(employee: Employee): void {
+ 
     this.employees.push(employee);
+ 
+    this.saveEmployees();
  
     this.employeeSubject.next([...this.employees]);
   }
  
   updateEmployee(updatedEmployee: Employee): void {
+ 
     console.log('UPDATE CALLED:', updatedEmployee.id);
  
     const index = this.employees.findIndex(
@@ -71,22 +79,50 @@ export class EmployeeService {
     );
  
     if (index !== -1) {
+ 
       this.employees[index] = { ...updatedEmployee };
+ 
+      this.saveEmployees();
  
       this.employeeSubject.next([...this.employees]);
     }
   }
  
   deleteEmployee(id: number): void {
+ 
     const index = this.employees.findIndex(
       employee => employee.id === id
     );
  
     if (index !== -1) {
+ 
       this.employees.splice(index, 1);
+ 
+      this.saveEmployees();
  
       this.employeeSubject.next([...this.employees]);
     }
   }
+ 
+  private saveEmployees(): void {
+ 
+    localStorage.setItem(
+      'employees',
+      JSON.stringify(this.employees)
+    );
+  }
+ 
+  private loadEmployees(): Employee[] {
+ 
+    const savedEmployees = localStorage.getItem('employees');
+ 
+    if (savedEmployees) {
+ 
+      return JSON.parse(savedEmployees);
+    }
+ 
+    return [...this.defaultEmployees];
+  }
+ 
 }
  

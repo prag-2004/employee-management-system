@@ -2,90 +2,159 @@
  
   <h1>Employee List</h1>
  
+  <!-- Employee Statistics -->
+  @if (!loading && !errorMessage) {
+ 
+    <div class="statistics">
+ 
+      <div class="stat-card">
+        <h3>Total Employees</h3>
+        <p>{{ totalEmployees }}</p>
+      </div>
+ 
+      <div class="stat-card">
+        <h3>Departments</h3>
+        <p>{{ totalDepartments }}</p>
+      </div>
+ 
+    </div>
+ 
+  }
+ 
   <!-- Add Employee -->
   <button type="button" (click)="addEmployee()">
     + Add Employee
   </button>
  
+  <!-- Search and Filter -->
+  @if (!loading && employees.length > 0) {
+ 
+    <div class="filters">
+ 
+      <input
+        type="text"
+        placeholder="Search by name"
+        [(ngModel)]="searchText"
+      />
+ 
+      <select [(ngModel)]="selectedDepartment">
+ 
+        <option value="">All Departments</option>
+ 
+        @for (department of departments; track department) {
+ 
+          <option [value]="department">
+            {{ department }}
+          </option>
+ 
+        }
+ 
+      </select>
+ 
+    </div>
+ 
+  }
+ 
   <!-- Success Message -->
   @if (successMessage) {
-    <p class="success">{{ successMessage }}</p>
+ 
+    <p class="success">
+      {{ successMessage }}
+    </p>
+ 
   }
  
   <!-- Error Message -->
   @if (errorMessage) {
-    <p class="error">{{ errorMessage }}</p>
+ 
+    <p class="error">
+      {{ errorMessage }}
+    </p>
+ 
   }
  
   @if (loading) {
+ 
     <p>Loading employees...</p>
+ 
   }
  
   @if (!loading && !errorMessage && employees.length === 0) {
+ 
     <p>No employees found.</p>
+ 
   }
  
   @if (!loading && employees.length > 0) {
  
-    <table>
+    @if (filteredEmployees.length === 0) {
  
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Department</th>
-          <th>Role</th>
-          <th>Joining Date</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
+      <p>No employees match your search or filter.</p>
  
-      <tbody>
+    } @else {
  
-        @for (employee of employees; track employee.id) {
+      <div class="table-container">
  
-          <tr>
+        <table>
  
-            <td>{{ employee.id }}</td>
-            <td>{{ employee.name }}</td>
-            <td>{{ employee.email }}</td>
-            <td>{{ employee.department }}</td>
-            <td>{{ employee.role }}</td>
-            <td>{{ employee.joiningDate }}</td>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th>Role</th>
+              <th>Joining Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
  
-            <td>
+          <tbody>
  
-              <!-- Edit -->
-              <button
-                type="button"
-                (click)="editEmployee(employee)">
-                Edit
-              </button>
+            @for (employee of filteredEmployees; track employee.id) {
  
-              <!-- View -->
-              <button
-                type="button"
-                (click)="viewEmployee(employee)">
-                View
-              </button>
+              <tr>
  
-              <!-- Delete -->
-              <button
-                type="button"
-                (click)="deleteEmployee(employee)">
-                Delete
-              </button>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.department }}</td>
+                <td>{{ employee.role }}</td>
+                <td>{{ employee.joiningDate }}</td>
  
-            </td>
+                <td>
  
-          </tr>
+                  <button
+                    type="button"
+                    (click)="editEmployee(employee)">
+                    Edit
+                  </button>
  
-        }
+                  <button
+                    type="button"
+                    (click)="viewEmployee(employee)">
+                    View
+                  </button>
  
-      </tbody>
+                  <button
+                    type="button"
+                    (click)="deleteEmployee(employee)">
+                    Delete
+                  </button>
  
-    </table>
+                </td>
+ 
+              </tr>
+ 
+            }
+ 
+          </tbody>
+ 
+        </table>
+ 
+      </div>
+ 
+    }
  
   }
  

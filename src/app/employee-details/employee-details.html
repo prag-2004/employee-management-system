@@ -1,10 +1,10 @@
 <div class="employee-details-container">
  
-  <h1>Employee Details</h1>
+  <h2>Employee Details</h2>
  
   @if (employee) {
  
-    <div class="employee-details">
+    <div class="employee-info">
  
       <p><strong>ID:</strong> {{ employee.id }}</p>
  
@@ -20,15 +20,19 @@
  
     </div>
  
-  }
+    <button type="button" (click)="goBack()">
+      Back to Employee List
+    </button>
  
-  @if (!employee) {
+  } @else {
+ 
     <p>Employee not found.</p>
-  }
  
-  <button type="button" (click)="goBack()">
-    Back to Employee List
-  </button>
+    <button type="button" (click)="goBack()">
+      Back to Employee List
+    </button>
+ 
+  }
  
 </div>
  

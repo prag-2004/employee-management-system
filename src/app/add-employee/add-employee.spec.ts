@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { describe, beforeEach, it, expect } from 'vitest';
- 
 import { AddEmployee } from './add-employee';
+ 
+import { ActivatedRoute } from '@angular/router';
+import { provideRouter } from '@angular/router';
  
 describe('AddEmployee', () => {
  
@@ -11,18 +12,38 @@ describe('AddEmployee', () => {
   beforeEach(async () => {
  
     await TestBed.configureTestingModule({
-      imports: [AddEmployee]
+ 
+      imports: [AddEmployee],
+ 
+      providers: [
+ 
+        provideRouter([]),
+ 
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: () => null
+              }
+            }
+          }
+        }
+ 
+      ]
+ 
     }).compileComponents();
  
     fixture = TestBed.createComponent(AddEmployee);
     component = fixture.componentInstance;
  
-    await fixture.whenStable();
+    fixture.detectChanges();
+ 
   });
  
   it('should create', () => {
+ 
     expect(component).toBeTruthy();
+ 
   });
- 
 });
- 

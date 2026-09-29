@@ -4,15 +4,19 @@
   align-items: center;
   min-height: 70vh;
   background-color: #f4f6f7;
+  padding: 20px;
+  box-sizing: border-box;
 }
  
 .login-card {
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   padding: 30px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  box-sizing: border-box;
 }
  
 .login-card h1 {
@@ -75,5 +79,20 @@
 .error-message small {
   display: block;
   font-size: 13px;
+}
+ 
+/* Mobile */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 15px;
+  }
+ 
+  .login-card {
+    padding: 20px;
+  }
+ 
+  .login-card h1 {
+    font-size: 21px;
+  }
 }
  

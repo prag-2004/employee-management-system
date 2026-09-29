@@ -5,12 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class Auth {
  
-  private isLoggedIn = false;
+  private isLoggedIn =
+    localStorage.getItem('isLoggedIn') === 'true';
  
   login(email: string, password: string): boolean {
  
     if (email === 'admin@gmail.com' && password === '123456') {
+ 
       this.isLoggedIn = true;
+ 
+      localStorage.setItem('isLoggedIn', 'true');
+ 
       return true;
     }
  
@@ -18,7 +23,10 @@ export class Auth {
   }
  
   logout(): void {
+ 
     this.isLoggedIn = false;
+ 
+    localStorage.removeItem('isLoggedIn');
   }
  
   checkLogin(): boolean {

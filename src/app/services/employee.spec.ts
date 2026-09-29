@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-
-import { Employee } from './employee';
-
-describe('Employee', () => {
-  let service: Employee;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(Employee);
+import { EmployeeService } from './employee';
+ 
+describe('EmployeeService', () => {
+  let service: EmployeeService;
+ 
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({}).compileComponents();
+ 
+    service = TestBed.inject(EmployeeService);
   });
-
+ 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });

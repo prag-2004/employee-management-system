@@ -21,25 +21,38 @@ export const routes: Routes = [
     component: Home
   },
  
+  // Employee List - Protected
   {
     path: 'employees',
-    component: Employees
+    component: Employees,
+    canActivate: [authGuard]
   },
  
+  // Add Employee - Protected
   {
     path: 'add-employee',
-    component: AddEmployee
+    component: AddEmployee,
+    canActivate: [authGuard]
+  },
+ 
+  // Edit Employee - Protected
+  {
+    path: 'add-employee/:id',
+    component: AddEmployee,
+    canActivate: [authGuard]
   },
  
   {
     path: 'login',
     component: Login
   },
+ 
   {
     path: 'employee-details/:id',
     component: EmployeeDetails
   },
  
+  // Dashboard - Already Protected
   {
     path: 'dashboard',
     component: Dashboard,

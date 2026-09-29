@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormControl,
@@ -8,7 +8,7 @@ import {
  
 import { EmployeeService } from '../services/employee';
 import { Employee } from '../models/employee';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
  
 @Component({
   selector: 'app-add-employee',
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './add-employee.html',
   styleUrl: './add-employee.css'
 })
-export class AddEmployee {
+export class AddEmployee implements OnInit {
  
   employeeForm = new FormGroup({
  
@@ -51,25 +51,55 @@ export class AddEmployee {
  
   constructor(
     private employeeService: EmployeeService,
-    private router: Router
-  ) {
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
  
-    const navigation = this.router.getCurrentNavigation();
+  ngOnInit(): void {
  
-    const employee =
-      navigation?.extras.state?.['employee'] as Employee | undefined;
+    const id = this.route.snapshot.paramMap.get('id');
  
-    if (employee) {
+    // EDIT MODE
+    if (id) {
  
-      this.editingEmployee = employee;
+      const employeeId = Number(id);
  
-      this.employeeForm.patchValue({
-        name: employee.name,
-        email: employee.email,
-        department: employee.department,
-        role: employee.role,
-        joiningDate: employee.joiningDate
+      this.employeeService.getEmployees().subscribe({
+ 
+        next: (employees: Employee[]) => {
+ 
+          const employee = employees.find(
+            employee => employee.id === employeeId
+          );
+ 
+          if (employee) {
+ 
+            this.editingEmployee = employee;
+ 
+            this.employeeForm.patchValue({
+              name: employee.name,
+              email: employee.email,
+              department: employee.department,
+              role: employee.role,
+              joiningDate: employee.joiningDate
+            });
+ 
+          } else {
+ 
+            this.errorMessage = 'Employee not found.';
+ 
+          }
+ 
+        },
+ 
+        error: () => {
+ 
+          this.errorMessage = 'Failed to load employee.';
+ 
+        }
+ 
       });
+ 
     }
   }
  

@@ -15,6 +15,10 @@ export class Dashboard {
     private router: Router
   ) {}
  
+  viewEmployees(): void {
+    this.router.navigate(['/employees']);
+  }
+ 
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);
